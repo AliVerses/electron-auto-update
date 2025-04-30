@@ -2,8 +2,7 @@
 
 This repository provides a complete, working example of an Electron application configured for automatic updates using `electron-updater`. It demonstrates how to publish application releases to **AWS S3** and serve them efficiently via **AWS CloudFront**. This setup is ideal for developers looking to implement a robust and scalable auto-update mechanism for their Electron applications.
 
-![Application Screenshot](https://i.imgur.com/examplescreenshot.jpg)
-*Note: Replace this placeholder image with an actual screenshot of the application.*
+![Application Screenshot](image-1.png)
 
 ## Features
 
