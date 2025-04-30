@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Auto Update Electron App 2 update</title>
+    <style>
+      body { 
+        font-family: Arial, sans-serif; 
+        margin: 30px; 
+        background-color: #f5f5f5;
+      }
+      .container {
+        max-width: 450px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      h2 {
+        color: #333;
+        margin-top: 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .info { 
+        margin-bottom: 25px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 4px;
+      }
+      .info div {
+        margin-bottom: 8px;
+      }
+      #update-section { 
+        margin-top: 25px;
+      }
+      .channel-selector {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+      }
+      select {
+        padding: 8px;
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+      button { 
+        padding: 10px 16px; 
+        font-size: 1em;
+        margin-right: 10px;
+        background-color: #4a86e8;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #3a76d8;
+      }
+      #trigger-update-btn {
+        background-color: #28a745;
+      }
+      #trigger-update-btn:hover {
+        background-color: #218838;
+      }
+      .notification { 
+        padding: 12px; 
+        margin-bottom: 15px; 
+        border-radius: 4px;
+        display: none;
+      }
+      .notification.info {
+        background-color: #d1ecf1;
+        color: #0c5460;
+      }
+      .notification.error {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+      .notification.success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+      #progress-container {
+        margin: 15px 0;
+      }
+      progress {
+        width: 100%;
+        height: 15px;
+        display: none;
+      }
+      #progress-text {
+        font-size: 0.9em;
+        margin-top: 5px;
+        color: #666;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Electron Auto-Update App</h2>
+      
+      <div class="info">
+        <div><b>Node.js Version:</b> <span id="node-version"></span></div>
+        <div><b>Electron Version:</b> <span id="electron-version"></span></div>
+      </div>
+      
+      <div class="channel-selector">
+        <label for="channel-select">Update Channel:</label>
+        <select id="channel-select">
+          <option value="stable">Stable</option>
+          <option value="beta">Beta</option>
+          <option value="dev">Dev</option>
+        </select>
+      </div>
+      
+      <div id="notification" class="notification"></div>
+      
+      <div id="progress-container">
+        <progress id="progress-bar" max="100" value="0"></progress>
+        <div id="progress-text"></div>
+      </div>
+      
+      <div id="update-section">
+        <button id="check-update-btn">Check for Updates</button>
+        <button id="trigger-update-btn" style="display:none;">Install Update</button>
+      </div>
+    </div>
+    <script src="renderer.js"></script>
+  </body>
+</html>

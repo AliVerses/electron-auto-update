@@ -1,0 +1,54 @@
+{
+  "name": "electron-updater-example",
+  "version": "0.1.1",
+  "main": "main.js",
+  "description": "electron-updater example project",
+  "author": "Ali",
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "publish": "env-cmd -e stable electron-builder --publish always"
+  },
+  "devDependencies": {
+    "electron": "^35.2.1",
+    "electron-builder": "^26.0.12",
+    "electron-notarize": "^1.2.2"
+  },
+  "dependencies": {
+    "electron-log": "^5.3.4",
+    "electron-updater": "^6.6.2",
+    "env-cmd": "^10.1.0"
+  },
+  "build": {
+    "appId": "com.github.iffy.electronupdaterexample",
+    "afterSign": "./build/notarize.js",
+    "mac": {
+      "category": "your.app.category.type",
+      "hardenedRuntime" : true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false
+    },
+    "linux": {
+      "category": "your.app.category.type",
+      "target": "AppImage"
+    },
+    "publish": [
+      {
+        "provider": "s3",
+        "bucket": "electron-update-auto",
+        "region": "us-east-1",
+        "path": "stable",
+        "channel": "stable",
+        "acl": "private"
+      }
+    ]
+  }
+}
