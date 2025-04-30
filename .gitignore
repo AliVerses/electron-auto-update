@@ -3,3 +3,14 @@ dist/
 yarn.lock
 package-lock.json
 **.app
+.terraform
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+*.tfplan
+*.tfplan.json
+*.tfplan.*
+*.tfstate.backup
+*.plan
+terraform/output.tf
