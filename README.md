@@ -13,6 +13,7 @@ This repository provides a complete, working example of an Electron application 
 *   **AWS Integration:** Leverage AWS S3 for storage and CloudFront for efficient content delivery.
 *   **macOS Code Signing & Notarization:** Includes the necessary configuration for a complete macOS release process.
 *   **Cross-Platform:** Designed to work across macOS, Windows, and Linux.
+*   **Terraform Support:** Includes Terraform configurations for automating infrastructure setup.
 
 ## Alternative Providers
 
@@ -29,12 +30,63 @@ Before you begin, ensure you have the following:
 *   **An AWS Account:** You will need access to AWS S3 and CloudFront services. Basic familiarity with these services is helpful.
 *   **Xcode (for macOS development):** Required for macOS code signing and notarization.
 *   **Apple Developer Account:** Necessary for obtaining code-signing certificates for macOS.
+*   **Terraform:** Required if you want to use the provided infrastructure-as-code setup (version 1.0+).
 
 ## Setup & Deployment Guide
 
 Follow these steps to set up and deploy your auto-updating Electron application.
 
-### 1. Configure Code Signing (macOS)
+### 1. Infrastructure Setup with Terraform (Optional)
+
+This repository includes Terraform configurations to automate the creation of the required AWS infrastructure. If you prefer to set up your infrastructure manually, you can skip this step.
+
+#### Prerequisites for Terraform
+
+- Install Terraform (version 1.0 or later)
+- Configure AWS credentials in your environment
+
+#### Deploy Infrastructure
+
+1. Navigate to the terraform directory:
+   ```sh
+   cd terraform
+   ```
+
+2. Initialize Terraform:
+   ```sh
+   terraform init
+   ```
+
+3. Review the planned changes:
+   ```sh
+   terraform plan
+   ```
+
+4. Apply the configuration:
+   ```sh
+   terraform apply
+   ```
+
+5. After successful deployment, Terraform will output important values like your S3 bucket name and CloudFront distribution domain. Use these values to update your `package.json` configuration.
+
+#### Terraform Resources Created
+
+The Terraform configuration creates:
+
+- An S3 bucket to store your application updates
+- A CloudFront distribution with proper caching settings
+- Appropriate IAM policies and permissions
+- CORS configurations for the S3 bucket
+
+#### Modifying Terraform Configuration
+
+If you need to customize the infrastructure:
+
+- `s3_bucket.tf` - Modify S3 bucket settings
+- `cdn.tf` - Adjust CloudFront distribution configuration
+- `output.tf` - View and modify output values
+
+### 2. Configure Code Signing (macOS)
 
 Code signing and notarization are essential for distributing macOS applications. This example is pre-configured to handle this if you have a `Developer ID Application` certificate installed.
 
@@ -74,6 +126,8 @@ Update the `publish` property within the `build` configuration in your `package.
 *   `path`: (Optional) A path prefix within your bucket. `${channel}` is used here to separate updates by release channel (stable, beta, dev).
 *   `acl`: (Optional) Access control for uploaded files. `private` is recommended when using CloudFront with OAI/OAC.
 *   `endpoint`: The domain name of your CloudFront distribution.
+
+### If you have followed the terra
 
 ### 3. Set up AWS S3 and CloudFront
 
